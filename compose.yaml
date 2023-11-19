@@ -3,9 +3,9 @@ version: "3"
 services:
   db:
     image:  mariadb:10.6.4-focal
-    command: '--default-authentication-plugin=mysql_native_password'
-    volumes:
-      db-data: /var/lib/mysql/data
+    #command: '--default-authentication-plugin=mysql_native_password'
+    volumes:  
+      - db_data:/var/lib/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 'Test1234'
@@ -13,8 +13,7 @@ services:
       MYSQL_USER: 'admin'
       MYSQL_PASSWORD: 'Test9876'
     expose: 
-      - 3306
-      - 33060
+      - 33060:3306
   wordpress:
     image: wordpress:latest
     ports: 
@@ -25,5 +24,6 @@ services:
       WORDPRESS_DB_USER: 'admin'
       WORDPRESS_DB_PASSWORD: 'Test9876'
       WORDPRESS_DB_NAME: 'wordpress'
-  volumes: 
-    db_data:
+      
+volumes: 
+  db_data:
